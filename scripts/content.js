@@ -244,7 +244,6 @@ chrome.runtime.onMessage.addListener(
       "from a content script:" + sender.tab.url :
       "from the extension");
     if (request.action === "save") {
-      let url = ""
       //处理完消息后、通知发送方
       let title = document.querySelector('.rich_media_title').textContent;
       let content = document.querySelector('.rich_media_content').innerHTML;
@@ -257,11 +256,12 @@ chrome.runtime.onMessage.addListener(
       let textContent = tempElement.textContent || tempElement.innerText;
       // 创建 Markdown 格式的标题和内容
       let markdownTitle = `# ${title}`;
+      // let markdownContent = textContent.split('\n').map(line => `> ${line}`).join('\n');
       let markdownContent = html2md(content);
       
-      // console.log(markdownTitle, markdownContent);
-      console.log(url, title, content);
-      sendResponse({ url:url, title: title,  content: content});
+      console.log(markdownTitle, markdownContent);
+      console.log(title, content);
+      sendResponse({ title: title,  content: markdownContent});
 
     }
 
